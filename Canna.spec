@@ -3,7 +3,7 @@ Summary(ja):	ÆüËÜ¸ìÆþÎÏ¥·¥¹¥Æ¥à
 Summary(pl):	System wprowadzania znaków japoñskich
 Name:		Canna
 Version:	3.5b2
-Release:	41
+Release:	42
 License:	BSD-like
 Group:		Libraries
 #origin, but host not found: ftp://ftp.nec.co.jp/pub/Canna/Canna35/Canna35b2.tar.gz
@@ -216,9 +216,13 @@ fi
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libRKC.so.1.0.0
+%ghost %{_libdir}/libRKC.so.1.0
 %attr(755,root,root) %{_libdir}/libRKC16.so.1.0.0
+%ghost %{_libdir}/libRKC16.so.1.0
 %attr(755,root,root) %{_libdir}/libcanna.so.1.0.0
+%ghost %{_libdir}/libcanna.so.1.0
 %attr(755,root,root) %{_libdir}/libcanna16.so.1.0.0
+%ghost %{_libdir}/libcanna16.so.1.0
 
 %files devel
 %defattr(644,root,root,755)
