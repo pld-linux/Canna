@@ -1,0 +1,35 @@
+--- Canna35b2/dic/ideo/pubdic/pod.c.orig	2004-08-22 14:34:33.278457000 +0200
++++ Canna35b2/dic/ideo/pubdic/pod.c	2004-08-22 14:54:04.397488547 +0200
+@@ -25,6 +25,8 @@
+ #endif
+ 
+ #include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
+ 
+ #define bzero(a, c) memset(a, 0, c)
+ 
+@@ -92,6 +94,7 @@
+ # define WCG3 0x8000
+ # define WCMSK 0x8080
+ 
++int
+ Mbstowcs(d, ss, n)
+ Wchar *d;
+ char *ss;
+@@ -1187,6 +1190,7 @@
+   }
+ }
+ 
++void
+ shrinkargs(argv, n, count)
+ char **argv;
+ int n, count;
+@@ -1369,6 +1373,7 @@
+   (Wchar)'k', (Wchar)'i', (Wchar)'h', (Wchar)'o', (Wchar)'n', (Wchar)0,
+ };
+ 
++int
+ main(argc, argv)
+ int argc;
+ char *argv[];
