@@ -18,8 +18,7 @@ Patch4:		%{name}-bcopy.patch
 Patch5:		%{name}-security.patch
 Patch6:		%{name}-hosts.canna-fix.patch
 URL:		http://www.nec.co.jp/japanese/product/computer/soft/canna/
-# note: it doesn't link with X libraries, only uses xmkmf
-BuildRequires:	XFree86-devel
+BuildRequires:	imake
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires(pre):	/bin/id
