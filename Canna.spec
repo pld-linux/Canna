@@ -3,7 +3,7 @@ Summary(ja):	ÆüËÜ¸ìÆþÎÏ¥·¥¹¥Æ¥à
 Summary(pl):	System wprowadzania znaków japoñskich
 Name:		Canna
 Version:	3.5b2
-Release:	43
+Release:	44
 License:	BSD-like
 Group:		Libraries
 #origin, but host not found: ftp://ftp.nec.co.jp/pub/Canna/Canna35/Canna35b2.tar.gz
@@ -21,6 +21,7 @@ Patch6:		%{name}-hosts.canna-fix.patch
 Patch7:		%{name}-nonstrip.patch
 Patch8:		%{name}-wconv.patch
 Patch9:		%{name}-multivul.patch
+Patch10:	%{name}-fixes.patch
 URL:		http://www.nec.co.jp/japanese/product/computer/soft/canna/
 BuildRequires:	imake
 PreReq:		rc-scripts
@@ -116,13 +117,17 @@ Ten pakiet zawiera statyczne biblioteki Canna.
 %patch7 -p2
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
+
+%{__perl} -pi -e 's@/usr/lib$@%{_libdir}@' Canna.conf
 
 %build
 xmkmf -a
 # by some reason sglobal.h is not made automatically - workaround:
 %{__make} sglobal.h -C lib/canna
 %{__make} canna \
-	CDEBUGFLAGS="%{rpmcflags}" CXXDEBUGFLAGS="%{rpmcflags}"
+	CDEBUGFLAGS="%{rpmcflags}" \
+	CXXDEBUGFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -130,7 +135,8 @@ install -d $RPM_BUILD_ROOT{/etc/rc.d/init.d,/etc/skel}
 
 %{__make} install install.man \
 	DESTDIR=$RPM_BUILD_ROOT \
-	MANSUFFIX=1 LIBMANSUFFIX=3
+	MANSUFFIX=1 \
+	LIBMANSUFFIX=3
 
 # default manuals are in Japanese; install English ones too
 mv -f Canna.conf Canna.conf.orig
@@ -139,7 +145,8 @@ xmkmf -a
 %{__make} install.man \
 	DESTDIR=$RPM_BUILD_ROOT \
 	cannaManDir=%{_mandir} \
-	MANSUFFIX=1 LIBMANSUFFIX=3
+	MANSUFFIX=1 \
+	LIBMANSUFFIX=3
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/canna
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/skel/.canna
