@@ -3,7 +3,7 @@ Summary(ja):	ÆüËÜ¸ìÆþÎÏ¥·¥¹¥Æ¥à
 Summary(pl):	System wprowadzania znaków japoñskich
 Name:		Canna
 Version:	3.5b2
-Release:	42
+Release:	43
 License:	BSD-like
 Group:		Libraries
 #origin, but host not found: ftp://ftp.nec.co.jp/pub/Canna/Canna35/Canna35b2.tar.gz
@@ -17,6 +17,9 @@ Patch3:		%{name}-stdin.patch
 Patch4:		%{name}-bcopy.patch
 Patch5:		%{name}-security.patch
 Patch6:		%{name}-hosts.canna-fix.patch
+Patch7:		%{name}-nonstrip.patch
+Patch8:		%{name}-wconv.patch
+Patch9:		%{name}-multivul.patch
 URL:		http://www.nec.co.jp/japanese/product/computer/soft/canna/
 BuildRequires:	imake
 PreReq:		rc-scripts
@@ -109,6 +112,9 @@ Ten pakiet zawiera statyczne biblioteki Canna.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p2
+%patch8 -p1
+%patch9 -p1
 
 %build
 xmkmf -a
@@ -190,7 +196,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc README WHATISz doc
+%doc README WHATIS doc
 %lang(ja) %doc CHANGES.jp README.jp WHATIS.jp
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/cannaserver
