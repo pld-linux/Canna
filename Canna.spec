@@ -8,6 +8,7 @@ License:	BSD-like
 Group:		Libraries
 #origin, but host not found: ftp://ftp.nec.co.jp/pub/Canna/Canna35/Canna35b2.tar.gz
 Source0:	ftp://ftp.tokyonet.ad.jp/pub/misc/%{name}/%{name}35/%{name}35b2.tar.gz
+# Source0-md5:	09ae4dd3a5d33168ba17470ad9242cf3
 Source1:	%{name}.init
 Source2:	%{name}-dot-canna
 Patch0:		%{name}-conf.patch
