@@ -216,13 +216,9 @@ fi
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libRKC.so.1.0.0
-%ghost %{_libdir}/libRKC.so.1.0
 %attr(755,root,root) %{_libdir}/libRKC16.so.1.0.0
-%ghost %{_libdir}/libRKC16.so.1.0
 %attr(755,root,root) %{_libdir}/libcanna.so.1.0.0
-%ghost %{_libdir}/libcanna.so.1.0
 %attr(755,root,root) %{_libdir}/libcanna16.so.1.0.0
-%ghost %{_libdir}/libcanna16.so.1.0
 
 %files devel
 %defattr(644,root,root,755)
