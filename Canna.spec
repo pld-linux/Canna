@@ -24,7 +24,12 @@ URL:		http://www.nec.co.jp/japanese/product/computer/soft/canna/
 BuildRequires:	imake
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
-Requires(pre):	user-canna
+Requires(pre): /bin/id
+Requires(pre): /usr/bin/getgid
+Requires(pre): /usr/sbin/groupadd
+Requires(pre): /usr/sbin/useradd
+Requires(postun):      /usr/sbin/userdel
+Requires(postun):      /usr/sbin/groupdel
 Requires:	%{name}-libs = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 ExcludeArch:	ia64
@@ -146,6 +151,25 @@ EOF
 %clean
 rm -fr $RPM_BUILD_ROOT
 
+%pre
+if [ -n "`getgid canna`" ]; then
+       if [ "`getgid canna`" != "41" ]; then
+               echo "Warning: group canna doesn't have gid=41. Correct this before installing Canna." 1>&2
+               exit 1
+       fi
+else
+       /usr/sbin/groupadd -g 41 -r -f canna
+fi
+if [ -n "`id -u canna 2>/dev/null`" ]; then
+       if [ "`id -u canna`" != "41" ]; then
+               echo "Warning: user canna doesn't have uid=41. Correct this before installing Canna." 1>&2
+               exit 1
+       fi
+else
+       /usr/sbin/useradd -u 41 -r -d /var/lib/canna -s /bin/false \
+               -c "Canna Service User" -g canna canna 1>&2
+fi
+
 %post
 /sbin/chkconfig --add canna
 if [ -f /var/lock/subsys/canna ]; then
@@ -160,6 +184,11 @@ if [ "$1" = "0" ]; then
 		/etc/rc.d/init.d/canna stop 1>&2
 	fi
 	/sbin/chkconfig --del canna
+fi
+
+%postun
+if [ "$1" = "0" ]; then
+       /usr/sbin/userdel canna
 fi
 
 %post	libs -p /sbin/ldconfig
