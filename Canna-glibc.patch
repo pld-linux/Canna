@@ -1,0 +1,18 @@
+--- cmd/crxgram/crxgram.c.bak	Sun Nov  2 12:29:33 1997
++++ cmd/crxgram/crxgram.c	Sun Nov  2 12:29:33 1997
+@@ -69,6 +69,7 @@
+ static char	fileName[256];
+ static int	lineNum;
+ 
++# ifndef __GLIBC__
+ static char *
+ basename(name)
+   char *name;
+@@ -83,6 +84,7 @@
+ 	    break;
+     return ++s;
+ }
++#endif
+ static void
+ usage(prog)
+   char	*prog;

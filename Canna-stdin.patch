@@ -1,0 +1,21 @@
+diff -urN Canna35b2.ORIG/dic/ideo/pubdic/pod.c Canna35b2/dic/ideo/pubdic/pod.c
+--- Canna35b2.ORIG/dic/ideo/pubdic/pod.c	Tue May 31 06:42:12 1994
++++ Canna35b2/dic/ideo/pubdic/pod.c	Thu Jan 21 04:21:27 1999
+@@ -51,7 +51,7 @@
+ static int list_kinds;
+ static int copy_frequency, extract_kana = 0;
+ static long specific_kind;
+-static FILE *in1 = stdin, *in2 = stdin;
++static FILE *in1, *in2;
+ static char *common_out, *old_out, *new_out, *hinshi_table, *bunrui;
+ static char *description_table;
+ static int selhinshi = 0;
+@@ -1373,6 +1373,8 @@
+ int argc;
+ char *argv[];
+ {
++  in1 = stdin;
++  in2 = stdin;
+ #ifndef POD_WCHAR
+   setlocale(LC_ALL, "");
+ #endif

@@ -1,0 +1,128 @@
+diff -Nur Canna35b2.orig/Imakefile Canna35b2/Imakefile
+--- Canna35b2.orig/Imakefile	Wed Nov 27 08:01:34 1996
++++ Canna35b2/Imakefile	Sat Mar  9 19:07:17 2002
+@@ -31,13 +31,8 @@
+ 
+ MakeDirectories(mkbindir, $(cannaBinDir))
+ MakeDirectories(mklibdir, $(cannaLibDir))
+-#ifdef __EMX__
+ MakeDirectories(mkdicdir, $(DicDir))
+ MakeDirectories(mkerrdir, $(ErrDir))
+-#else
+-MakeDirectoriesLong(mkdicdir, $(DicDir), $(cannaOwner), $(cannaGroup))
+-MakeDirectoriesLong(mkerrdir, $(ErrDir), $(cannaOwner), $(cannaGroup))
+-#endif
+ 
+ LinkFileList(includes,cannaconf.h,$(CANNAROOT)/include,..)
+ 
+diff -Nur Canna35b2.orig/cmd/catdic/Imakefile Canna35b2/cmd/catdic/Imakefile
+--- Canna35b2.orig/cmd/catdic/Imakefile	Mon Dec  2 12:38:14 1996
++++ Canna35b2/cmd/catdic/Imakefile	Sat Mar  9 19:02:25 2002
+@@ -75,23 +75,23 @@
+ 	$(LN) $(cannaBinDir)/catdic.exe $(cannaBinDir)/cannakill.exe
+ #else
+ install::
+-	$(RM) $(cannaBinDir)/cpdic
+-	$(RM) $(cannaBinDir)/lsdic
+-	$(RM) $(cannaBinDir)/mkdic
+-	$(RM) $(cannaBinDir)/mvdic
+-	$(RM) $(cannaBinDir)/rmdic
+-	$(RM) $(cannaBinDir)/syncdic
+-	$(RM) $(cannaBinDir)/chmoddic
+-	$(RM) $(cannaBinDir)/addwords
+-	$(RM) $(cannaBinDir)/delwords
+-	$(RM) $(cannaBinDir)/cannakill
+-	$(LN) $(cannaBinDir)/catdic $(cannaBinDir)/cpdic
+-	$(LN) $(cannaBinDir)/catdic $(cannaBinDir)/lsdic
+-	$(LN) $(cannaBinDir)/catdic $(cannaBinDir)/mkdic
+-	$(LN) $(cannaBinDir)/catdic $(cannaBinDir)/mvdic
+-	$(LN) $(cannaBinDir)/catdic $(cannaBinDir)/rmdic
+-	$(LN) $(cannaBinDir)/catdic $(cannaBinDir)/syncdic
+-	$(LN) $(cannaBinDir)/catdic $(cannaBinDir)/addwords
+-	$(LN) $(cannaBinDir)/catdic $(cannaBinDir)/delwords
+-	$(LN) $(cannaBinDir)/catdic $(cannaBinDir)/cannakill
++	$(RM) $(DESTDIR)$(cannaBinDir)/cpdic
++	$(RM) $(DESTDIR)$(cannaBinDir)/lsdic
++	$(RM) $(DESTDIR)$(cannaBinDir)/mkdic
++	$(RM) $(DESTDIR)$(cannaBinDir)/mvdic
++	$(RM) $(DESTDIR)$(cannaBinDir)/rmdic
++	$(RM) $(DESTDIR)$(cannaBinDir)/syncdic
++	$(RM) $(DESTDIR)$(cannaBinDir)/chmoddic
++	$(RM) $(DESTDIR)$(cannaBinDir)/addwords
++	$(RM) $(DESTDIR)$(cannaBinDir)/delwords
++	$(RM) $(DESTDIR)$(cannaSrvDir)/cannakill
++	$(LN) catdic $(DESTDIR)$(cannaBinDir)/cpdic
++	$(LN) catdic $(DESTDIR)$(cannaBinDir)/lsdic
++	$(LN) catdic $(DESTDIR)$(cannaBinDir)/mkdic
++	$(LN) catdic $(DESTDIR)$(cannaBinDir)/mvdic
++	$(LN) catdic $(DESTDIR)$(cannaBinDir)/rmdic
++	$(LN) catdic $(DESTDIR)$(cannaBinDir)/syncdic
++	$(LN) catdic $(DESTDIR)$(cannaBinDir)/addwords
++	$(LN) catdic $(DESTDIR)$(cannaBinDir)/delwords
++	$(LN) ../bin/catdic $(DESTDIR)$(cannaSrvDir)/cannakill
+ #endif
+diff -Nur Canna35b2.orig/dic/ideo/grammar/Imakefile Canna35b2/dic/ideo/grammar/Imakefile
+--- Canna35b2.orig/dic/ideo/grammar/Imakefile	Wed Nov 27 08:14:45 1996
++++ Canna35b2/dic/ideo/grammar/Imakefile	Sat Mar  9 19:05:52 2002
+@@ -82,9 +82,7 @@
+ 
+ MakeDirectories(install,$(CANNADICDIR))
+ 
+-InstallMultipleFlags($(ALLDIC),$(CANNADICDIR),-m 0664 $(cannaOwnerGroup))
++InstallMultipleFlags($(ALLDIC),$(CANNADICDIR),-m 0664)
+ 
+ install::
+-	$(CHGRP) $(cannaGroup) $(CANNADICDIR)
+-	$(CHOWN) $(cannaOwner) $(CANNADICDIR)
+-	$(CHMOD) ug+w $(CANNADICDIR)
++	$(CHMOD) ug+w $(DESTDIR)$(CANNADICDIR)
+diff -Nur Canna35b2.orig/dic/ideo/words/Imakefile Canna35b2/dic/ideo/words/Imakefile
+--- Canna35b2.orig/dic/ideo/words/Imakefile	Wed Nov 27 08:14:55 1996
++++ Canna35b2/dic/ideo/words/Imakefile	Sat Mar  9 19:05:40 2002
+@@ -60,7 +60,7 @@
+ 
+ MakeDirectories(install,$(CANNADICDIR))
+ 
+-InstallMultipleFlags($(TARGETS),$(CANNADICDIR),-m 0664 $(cannaOwnerGroup))
++InstallMultipleFlags($(TARGETS),$(CANNADICDIR),-m 0664)
+ 
+ #ifdef USE_OBSOLETE_STYLE_FILENAME
+ InstallNamedNonExec(obsolete.dir,dics.dir,$(CANNADICDIR))
+@@ -69,13 +69,9 @@
+ #endif
+ 
+ install::
+-	$(CHGRP) $(cannaGroup) $(CANNADICDIR)
+-	$(CHOWN) $(cannaOwner) $(CANNADICDIR)
+-	$(CHMOD) ug+w $(CANNADICDIR)
+-	$(CHGRP) $(cannaGroup) $(DicDir)
+-	$(CHOWN) $(cannaOwner) $(DicDir)
+-	$(CHMOD) ug+w $(DicDir)
+-	$(CHMOD) -w $(CANNADICDIR)/dics.dir
++	$(CHMOD) ug+w $(DESTDIR)$(CANNADICDIR)
++	$(CHMOD) ug+w $(DESTDIR)$(DicDir)
++	$(CHMOD) -w $(DESTDIR)$(CANNADICDIR)/dics.dir
+ 
+ #ifndef USE_OBSOLETE_STYLE_FILENAME
+ InstallNamedNonExec(necgaiji.t,necgaiji.ctd,$(CANNADICDIR))
+@@ -91,7 +87,7 @@
+ #else
+     TEXTDICS = necgaiji.t kanasmpl.t software.t chimei.t \
+                hojomwd.t hojoswd.t suffix.t number.t katakana.t keishiki.t
+-InstallMultipleFlags($(TEXTDICS),$(CANNADICDIR),-m 0664 $(cannaOwnerGroup))
++InstallMultipleFlags($(TEXTDICS),$(CANNADICDIR),-m 0664)
+ #endif
+ 
+ depend::
+diff -Nur Canna35b2.orig/server/Imakefile Canna35b2/server/Imakefile
+--- Canna35b2.orig/server/Imakefile	Wed Nov 27 08:25:24 1996
++++ Canna35b2/server/Imakefile	Sat Mar  9 19:07:48 2002
+@@ -2,7 +2,7 @@
+ #include "../Canna.conf"
+ 
+          CANNAROOT = ..
+-     INSTUGIDFLAGS = -m 6555 $(cannaOwnerGroup)
++     INSTUGIDFLAGS = -m 755
+ #ifdef __EMX__
+          INSTFLAGS = $(INSTUGIDFLAGS)
+    LOCAL_LIBRARIES = $(CANNAROOT)/lib/RK/RK.a

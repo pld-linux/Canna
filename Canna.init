@@ -1,0 +1,57 @@
+#!/bin/sh
+#
+# chkconfig: 345 90 12
+# description: Canna Japanese Conversion Engine
+#
+# canna         Canna server
+
+# Source function library
+. /etc/rc.d/init.d/functions
+ 
+# Get service config
+[ -f /etc/sysconfig/canna ] && . /etc/sysconfig/canna
+
+case "$1" in
+  start)
+	if [ ! -f /var/lock/subsys/canna ]; then
+		msg_starting Canna
+		rm -f /tmp/.iroha_unix/IROHA
+		daemon "su - canna -s /bin/sh -c '/usr/sbin/cannaserver -syslog'"
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/canna
+		exit $RETVAL
+	else
+		msg_already_running Canna
+		exit 1
+	fi
+        ;;
+  stop)
+	if [ -f /var/lock/subsys/canna ]; then
+		msg_stopping Canna
+		/usr/sbin/cannakill
+		RETVAL=$?
+		if [ $RETVAL -eq 0 ]; then
+			ok
+		else
+			fail
+		fi
+		rm -f /tmp/.iroha_unix/IROHA /var/lock/subsys/canna
+		exit $RETVAL
+	else
+		msg_not_running Canna
+		exit 1
+	fi
+        ;;
+  status)
+        status cannaserver
+        ;;
+  restart|reload)
+        $0 stop
+        $0 start
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|condrestart|status}"
+        exit 1
+esac
+ 
+exit 0
