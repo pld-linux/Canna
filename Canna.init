@@ -11,6 +11,7 @@
 # Get service config
 [ -f /etc/sysconfig/canna ] && . /etc/sysconfig/canna
 
+RETVAL=0
 case "$1" in
   start)
 	if [ ! -f /var/lock/subsys/canna ]; then
@@ -19,39 +20,32 @@ case "$1" in
 		daemon "su - canna -s /bin/sh -c '/usr/sbin/cannaserver -syslog'"
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/canna
-		exit $RETVAL
 	else
 		msg_already_running Canna
-		exit 1
 	fi
         ;;
   stop)
 	if [ -f /var/lock/subsys/canna ]; then
 		msg_stopping Canna
 		/usr/sbin/cannakill
-		RETVAL=$?
-		if [ $RETVAL -eq 0 ]; then
-			ok
-		else
-			fail
-		fi
+		[ $? -eq 0 ] && ok || fail
 		rm -f /tmp/.iroha_unix/IROHA /var/lock/subsys/canna
-		exit $RETVAL
 	else
 		msg_not_running Canna
-		exit 1
 	fi
         ;;
   status)
         status cannaserver
+	exit $?
         ;;
-  restart|reload)
+  restart|force-reload)
         $0 stop
         $0 start
+	exit $?
         ;;
   *)
-        msg_usage "$0 {start|stop|restart|reload|condrestart|status}"
-        exit 1
+        msg_usage "$0 {start|stop|restart|force-reload|status}"
+        exit 3
 esac
  
-exit 0
+exit $RETVAL
