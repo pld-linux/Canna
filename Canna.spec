@@ -24,17 +24,20 @@ Patch9:		%{name}-multivul.patch
 Patch10:	%{name}-fixes.patch
 URL:		http://www.nec.co.jp/japanese/product/computer/soft/canna/
 BuildRequires:	imake
+BuildRequires:	rpmbuild(macros) >= 1.159
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires(postun):	/usr/sbin/userdel
 Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
 Requires:	%{name}-libs = %{version}
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Provides:	group(canna)
+Provides:	user(canna)
 ExcludeArch:	ia64
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Canna is a Japanese input system and provides a unified user interface
@@ -160,21 +163,21 @@ EOF
 rm -fr $RPM_BUILD_ROOT
 
 %pre
-if [ -n "`getgid canna`" ]; then
-	if [ "`getgid canna`" != "41" ]; then
+if [ -n "`/usr/bin/getgid canna`" ]; then
+	if [ "`/usr/bin/getgid canna`" != 41 ]; then
 		echo "Warning: group canna doesn't have gid=41. Correct this before installing Canna." 1>&2
 		exit 1
 	fi
 else
-	/usr/sbin/groupadd -g 41 -r -f canna
+	/usr/sbin/groupadd -g 41 canna
 fi
-if [ -n "`id -u canna 2>/dev/null`" ]; then
-	if [ "`id -u canna`" != "41" ]; then
+if [ -n "`/bin/id -u canna 2>/dev/null`" ]; then
+	if [ "`/bin/id -u canna`" != 41 ]; then
 		echo "Warning: user canna doesn't have uid=41. Correct this before installing Canna." 1>&2
 		exit 1
 	fi
 else
-	/usr/sbin/useradd -u 41 -r -d /var/lib/canna -s /bin/false \
+	/usr/sbin/useradd -u 41 -d /var/lib/canna -s /bin/false \
 		-c "Canna Service User" -g canna canna 1>&2
 fi
 
@@ -196,7 +199,8 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-	/usr/sbin/userdel canna
+	%userremove canna
+	%groupremove canna
 fi
 
 %post	libs -p /sbin/ldconfig
