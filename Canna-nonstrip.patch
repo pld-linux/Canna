@@ -1,0 +1,12 @@
+diff -ruN Canna-3.5b2.orig/Canna35b2/server/Imakefile Canna-3.5b2/Canna35b2/server/Imakefile
+--- Canna-3.5b2.orig/Canna35b2/server/Imakefile	2002-07-18 21:12:33.000000000 +0900
++++ Canna-3.5b2/Canna35b2/server/Imakefile	2002-07-18 21:13:30.000000000 +0900
+@@ -7,7 +7,7 @@
+          INSTFLAGS = $(INSTUGIDFLAGS)
+    LOCAL_LIBRARIES = $(CANNAROOT)/lib/RK/RK.a
+ #else
+-         INSTFLAGS = -s $(INSTUGIDFLAGS)
++         INSTFLAGS = $(INSTUGIDFLAGS)
+    LOCAL_LIBRARIES = $(CANNAROOT)/lib/RK/libRK.a
+ #endif
+            DEFINES = $(CANNASERVER_DEFINES)
