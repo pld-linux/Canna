@@ -142,8 +142,6 @@ unix
 localhost
 EOF
 
-gzip -9nf CHANGES.jp README* WHATIS*
-
 %clean
 rm -fr $RPM_BUILD_ROOT
 
@@ -192,8 +190,8 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc README.gz WHATIS.gz doc
-%lang(ja) %doc {CHANGES.jp,README.jp,WHATIS.jp}.gz
+%doc README WHATISz doc
+%lang(ja) %doc CHANGES.jp README.jp WHATIS.jp
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/cannaserver
 %attr(755,root,root) %{_sbindir}/cannakill
