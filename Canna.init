@@ -50,7 +50,7 @@ case "$1" in
         $0 start
         ;;
   *)
-        echo $"Usage: $0 {start|stop|restart|condrestart|status}"
+        msg_usage "$0 {start|stop|restart|condrestart|status}"
         exit 1
 esac
  
