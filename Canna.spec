@@ -24,7 +24,7 @@ Patch9:		%{name}-multivul.patch
 Patch10:	%{name}-fixes.patch
 URL:		http://www.nec.co.jp/japanese/product/computer/soft/canna/
 BuildRequires:	imake
-BuildRequires:	rpmbuild(macros) >= 1.159
+BuildRequires:	rpmbuild(macros) >= 1.202
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires(pre):	/bin/id
@@ -163,23 +163,8 @@ EOF
 rm -fr $RPM_BUILD_ROOT
 
 %pre
-if [ -n "`/usr/bin/getgid canna`" ]; then
-	if [ "`/usr/bin/getgid canna`" != 41 ]; then
-		echo "Warning: group canna doesn't have gid=41. Correct this before installing Canna." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/groupadd -g 41 canna
-fi
-if [ -n "`/bin/id -u canna 2>/dev/null`" ]; then
-	if [ "`/bin/id -u canna`" != 41 ]; then
-		echo "Warning: user canna doesn't have uid=41. Correct this before installing Canna." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/useradd -u 41 -d /var/lib/canna -s /bin/false \
-		-c "Canna Service User" -g canna canna 1>&2
-fi
+%groupadd -g 41 canna
+%useradd -u 41 -d /var/lib/canna -s /bin/false -c "Canna Service User" -g canna canna
 
 %post
 /sbin/chkconfig --add canna
