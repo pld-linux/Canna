@@ -7,7 +7,7 @@ Release:	44
 License:	BSD-like
 Group:		Libraries
 #origin, but host not found: ftp://ftp.nec.co.jp/pub/Canna/Canna35/Canna35b2.tar.gz
-Source0:	ftp://ftp.tokyonet.ad.jp/pub/misc/%{name}/%{name}35/%{name}35b2.tar.gz
+Source0:	ftp://ftp.tokyonet.ad.jp/pub/misc/Canna/Canna35/%{name}35b2.tar.gz
 # Source0-md5:	09ae4dd3a5d33168ba17470ad9242cf3
 Source1:	%{name}.init
 Source2:	%{name}-dot-canna
@@ -199,19 +199,19 @@ fi
 %attr(755,root,root) %{_sbindir}/cannaserver
 %attr(755,root,root) %{_sbindir}/cannakill
 %attr(754,root,root) /etc/rc.d/init.d/canna
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/hosts.canna
-%config(noreplace) %verify(not size mtime md5) /etc/skel/.canna
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/hosts.canna
+%config(noreplace) %verify(not md5 mtime size) /etc/skel/.canna
 %{_mandir}/man1/*
 %lang(ja) %{_mandir}/ja/man1/*
 %attr(770,root,canna) /var/log/canna
 %dir /var/lib/canna
-%config(noreplace) %verify(not size mtime md5) /var/lib/canna/default.canna
-%config(noreplace) %verify(not size mtime md5) /var/lib/canna/engine.cf
+%config(noreplace) %verify(not md5 mtime size) /var/lib/canna/default.canna
+%config(noreplace) %verify(not md5 mtime size) /var/lib/canna/engine.cf
 %attr(775,root,canna) %dir /var/lib/canna/dic
-%attr(664,root,canna) %config(noreplace) %verify(not size mtime md5) /var/lib/canna/dic/*.cbp
+%attr(664,root,canna) %config(noreplace) %verify(not md5 mtime size) /var/lib/canna/dic/*.cbp
 %attr(775,root,canna) %dir /var/lib/canna/dic/canna
-%attr(664,root,canna) %config(noreplace) %verify(not size mtime md5) /var/lib/canna/dic/canna/*.c*
-%config(noreplace) %verify(not size mtime md5) /var/lib/canna/dic/canna/dics.dir
+%attr(664,root,canna) %config(noreplace) %verify(not md5 mtime size) /var/lib/canna/dic/canna/*.c*
+%config(noreplace) %verify(not md5 mtime size) /var/lib/canna/dic/canna/dics.dir
 /var/lib/canna/sample
 
 %files libs
