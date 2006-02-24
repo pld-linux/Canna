@@ -24,16 +24,16 @@ Patch9:		%{name}-multivul.patch
 Patch10:	%{name}-fixes.patch
 URL:		http://www.nec.co.jp/japanese/product/computer/soft/canna/
 BuildRequires:	imake
-BuildRequires:	rpmbuild(macros) >= 1.202
-PreReq:		rc-scripts
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires(postun):	/usr/sbin/groupdel
-Requires(postun):	/usr/sbin/userdel
 Requires:	%{name}-libs = %{version}
+Requires:	rc-scripts
 Provides:	group(canna)
 Provides:	user(canna)
 ExcludeArch:	ia64
@@ -168,17 +168,11 @@ rm -fr $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add canna
-if [ -f /var/lock/subsys/canna ]; then
-	/etc/rc.d/init.d/canna restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/canna start\" to start Canna service."
-fi
+%service canna restart "Canna service"
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/canna ]; then
-		/etc/rc.d/init.d/canna stop 1>&2
-	fi
+	%service canna stop
 	/sbin/chkconfig --del canna
 fi
 
