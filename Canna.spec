@@ -3,7 +3,7 @@ Summary(ja):	ÆüËÜ¸ìÆşÎÏ¥·¥¹¥Æ¥à
 Summary(pl):	System wprowadzania znaków japoñskich
 Name:		Canna
 Version:	3.5b2
-Release:	44
+Release:	45
 License:	BSD-like
 Group:		Libraries
 #origin, but host not found: ftp://ftp.nec.co.jp/pub/Canna/Canna35/Canna35b2.tar.gz
