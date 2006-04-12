@@ -7,7 +7,7 @@ Release:	44
 License:	BSD-like
 Group:		Libraries
 #origin, but host not found: ftp://ftp.nec.co.jp/pub/Canna/Canna35/Canna35b2.tar.gz
-Source0:	ftp://ftp.tokyonet.ad.jp/pub/misc/%{name}/%{name}35/%{name}35b2.tar.gz
+Source0:	ftp://ftp.tokyonet.ad.jp/pub/misc/Canna/Canna35/%{name}35b2.tar.gz
 # Source0-md5:	09ae4dd3a5d33168ba17470ad9242cf3
 Source1:	%{name}.init
 Source2:	%{name}-dot-canna
@@ -24,17 +24,19 @@ Patch9:		%{name}-multivul.patch
 Patch10:	%{name}-fixes.patch
 URL:		http://www.nec.co.jp/japanese/product/computer/soft/canna/
 BuildRequires:	imake
-PreReq:		rc-scripts
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
+Requires(post,preun):	rc-scripts
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires(postun):	/usr/sbin/userdel
-Requires(postun):	/usr/sbin/groupdel
 Requires:	%{name}-libs = %{version}
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Requires:	rc-scripts
 ExcludeArch:	ia64
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Canna is a Japanese input system and provides a unified user interface
@@ -160,23 +162,8 @@ EOF
 rm -fr $RPM_BUILD_ROOT
 
 %pre
-if [ -n "`getgid canna`" ]; then
-	if [ "`getgid canna`" != "41" ]; then
-		echo "Warning: group canna doesn't have gid=41. Correct this before installing Canna." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/groupadd -g 41 -r -f canna
-fi
-if [ -n "`id -u canna 2>/dev/null`" ]; then
-	if [ "`id -u canna`" != "41" ]; then
-		echo "Warning: user canna doesn't have uid=41. Correct this before installing Canna." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/useradd -u 41 -r -d /var/lib/canna -s /bin/false \
-		-c "Canna Service User" -g canna canna 1>&2
-fi
+%groupadd -g 41 -r -f canna
+%useradd -u 41 -r -d /var/lib/canna -s /bin/false -c "Canna Service User" -g canna canna
 
 %post
 /sbin/chkconfig --add canna
@@ -196,7 +183,8 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-	/usr/sbin/userdel canna
+	%userremove canna
+	%groupremove canna
 fi
 
 %post	libs -p /sbin/ldconfig
@@ -210,19 +198,19 @@ fi
 %attr(755,root,root) %{_sbindir}/cannaserver
 %attr(755,root,root) %{_sbindir}/cannakill
 %attr(754,root,root) /etc/rc.d/init.d/canna
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/hosts.canna
-%config(noreplace) %verify(not size mtime md5) /etc/skel/.canna
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/hosts.canna
+%config(noreplace) %verify(not md5 mtime size) /etc/skel/.canna
 %{_mandir}/man1/*
 %lang(ja) %{_mandir}/ja/man1/*
 %attr(770,root,canna) /var/log/canna
 %dir /var/lib/canna
-%config(noreplace) %verify(not size mtime md5) /var/lib/canna/default.canna
-%config(noreplace) %verify(not size mtime md5) /var/lib/canna/engine.cf
+%config(noreplace) %verify(not md5 mtime size) /var/lib/canna/default.canna
+%config(noreplace) %verify(not md5 mtime size) /var/lib/canna/engine.cf
 %attr(775,root,canna) %dir /var/lib/canna/dic
-%attr(664,root,canna) %config(noreplace) %verify(not size mtime md5) /var/lib/canna/dic/*.cbp
+%attr(664,root,canna) %config(noreplace) %verify(not md5 mtime size) /var/lib/canna/dic/*.cbp
 %attr(775,root,canna) %dir /var/lib/canna/dic/canna
-%attr(664,root,canna) %config(noreplace) %verify(not size mtime md5) /var/lib/canna/dic/canna/*.c*
-%config(noreplace) %verify(not size mtime md5) /var/lib/canna/dic/canna/dics.dir
+%attr(664,root,canna) %config(noreplace) %verify(not md5 mtime size) /var/lib/canna/dic/canna/*.c*
+%config(noreplace) %verify(not md5 mtime size) /var/lib/canna/dic/canna/dics.dir
 /var/lib/canna/sample
 
 %files libs
