@@ -1,28 +1,31 @@
+%define	_ver	%(echo %{version} | tr -d .)
+%define	_rc		p3
+%define	_rel	0.1
 Summary:	Japanese input system
 Summary(ja):	ÆüËÜ¸ìÆþÎÏ¥·¥¹¥Æ¥à
 Summary(pl):	System wprowadzania znaków japoñskich
 Name:		Canna
-Version:	3.5b2
-Release:	45
+Version:	3.7
+Release:	0.%{_rc}.%{_rel}
 License:	BSD-like
 Group:		Libraries
-#origin, but host not found: ftp://ftp.nec.co.jp/pub/Canna/Canna35/Canna35b2.tar.gz
-Source0:	ftp://ftp.tokyonet.ad.jp/pub/misc/Canna/Canna35/%{name}35b2.tar.gz
-# Source0-md5:	09ae4dd3a5d33168ba17470ad9242cf3
+Source0:	http://downloads.sourceforge.jp/canna/9565/%{name}%{_ver}%{_rc}.tar.bz2
+# Source0-md5:	0b8c241f63ab4cd3c0b9be569456dc33
 Source1:	%{name}.init
 Source2:	%{name}-dot-canna
 Patch0:		%{name}-conf.patch
 Patch1:		%{name}-DESTDIR.patch
-Patch2:		%{name}-glibc.patch
-Patch3:		%{name}-stdin.patch
-Patch4:		%{name}-bcopy.patch
-Patch5:		%{name}-security.patch
-Patch6:		%{name}-hosts.canna-fix.patch
-Patch7:		%{name}-nonstrip.patch
+#Patch2:		%{name}-glibc.patch # looks outdated
+#Patch3:		%{name}-stdin.patch # looks outdated
+#Patch4:		%{name}-bcopy.patch # looks outdated
+#Patch5:		%{name}-security.patch # looks outdated
+#Patch6:		%{name}-hosts.canna-fix.patch # looks outdated
+#Patch7:		%{name}-nonstrip.patch # merged into Canna-conf.patch
 Patch8:		%{name}-wconv.patch
-Patch9:		%{name}-multivul.patch
-Patch10:	%{name}-fixes.patch
-URL:		http://www.nec.co.jp/japanese/product/computer/soft/canna/
+#Patch9:		%{name}-multivul.patch # apparently outdated
+#Patch10:	%{name}-fixes.patch # outdated apparently
+URL:		http://canna.sourceforge.jp/
+BuildRequires:	cpp
 BuildRequires:	imake
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
@@ -109,25 +112,12 @@ This package contains Canna static libraries.
 Ten pakiet zawiera statyczne biblioteki Canna.
 
 %prep
-%setup -q -n %{name}35b2
+%setup -q -n %{name}%{_ver}%{_rc}
 %patch0 -p1
-%patch1 -p1
-%patch3 -p1
-%patch2 -p0
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p2
 %patch8 -p1
-%patch9 -p1
-%patch10 -p1
-
-%{__perl} -pi -e 's@/usr/lib$@%{_libdir}@' Canna.conf
 
 %build
 xmkmf -a
-# by some reason sglobal.h is not made automatically - workaround:
-%{__make} sglobal.h -C lib/canna
 %{__make} canna \
 	CDEBUGFLAGS="%{rpmcflags}" \
 	CXXDEBUGFLAGS="%{rpmcflags}"
@@ -141,15 +131,19 @@ install -d $RPM_BUILD_ROOT{/etc/rc.d/init.d,/etc/skel}
 	MANSUFFIX=1 \
 	LIBMANSUFFIX=3
 
-# default manuals are in Japanese; install English ones too
-mv -f Canna.conf Canna.conf.orig
-sed -e 's/^#define JAPANESEMAN.*//' Canna.conf.orig > Canna.conf
 xmkmf -a
 %{__make} install.man \
 	DESTDIR=$RPM_BUILD_ROOT \
 	cannaManDir=%{_mandir} \
 	MANSUFFIX=1 \
 	LIBMANSUFFIX=3
+
+# convert man symlinks to files
+for l in $(find $RPM_BUILD_ROOT%{_mandir} -type l); do
+	t=$(readlink $l)
+	rm -f $l
+	echo ".so $t" > $l
+done
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/canna
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/skel/.canna
@@ -158,6 +152,9 @@ cat > $RPM_BUILD_ROOT%{_sysconfdir}/hosts.canna << EOF
 unix
 localhost
 EOF
+
+rm -rf $RPM_BUILD_ROOT%{_prefix}/man
+
 
 %clean
 rm -fr $RPM_BUILD_ROOT
@@ -187,7 +184,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc README WHATIS doc
+%doc README WHATIS
 %lang(ja) %doc CHANGES.jp README.jp WHATIS.jp
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/cannaserver
@@ -198,22 +195,22 @@ fi
 %{_mandir}/man1/*
 %lang(ja) %{_mandir}/ja/man1/*
 %attr(770,root,canna) /var/log/canna
-%dir /var/lib/canna
-%config(noreplace) %verify(not md5 mtime size) /var/lib/canna/default.canna
-%config(noreplace) %verify(not md5 mtime size) /var/lib/canna/engine.cf
-%attr(775,root,canna) %dir /var/lib/canna/dic
-%attr(664,root,canna) %config(noreplace) %verify(not md5 mtime size) /var/lib/canna/dic/*.cbp
-%attr(775,root,canna) %dir /var/lib/canna/dic/canna
-%attr(664,root,canna) %config(noreplace) %verify(not md5 mtime size) /var/lib/canna/dic/canna/*.c*
-%config(noreplace) %verify(not md5 mtime size) /var/lib/canna/dic/canna/dics.dir
-/var/lib/canna/sample
+
+%dir %{_datadir}/canna
+%config(noreplace) %verify(not md5 mtime size) %{_datadir}/canna/default.canna
+%attr(775,root,canna) %dir %{_datadir}/canna/dic
+%attr(664,root,canna) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/canna/dic/*.cbp
+%attr(775,root,canna) %dir %{_datadir}/canna/dic/canna
+%attr(664,root,canna) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/canna/dic/canna/*.c*
+%config(noreplace) %verify(not md5 mtime size) %{_datadir}/canna/dic/canna/dics.dir
+%{_datadir}/canna/sample
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libRKC.so.1.0.0
-%attr(755,root,root) %{_libdir}/libRKC16.so.1.0.0
-%attr(755,root,root) %{_libdir}/libcanna.so.1.0.0
-%attr(755,root,root) %{_libdir}/libcanna16.so.1.0.0
+%attr(755,root,root) %{_libdir}/libRKC.so.*.*
+%attr(755,root,root) %{_libdir}/libRKC16.so.*.*
+%attr(755,root,root) %{_libdir}/libcanna.so.*.*
+%attr(755,root,root) %{_libdir}/libcanna16.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
