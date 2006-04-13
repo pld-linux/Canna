@@ -1,50 +1,58 @@
-diff -Nur Canna35b2.orig/Canna.conf Canna35b2/Canna.conf
---- Canna35b2.orig/Canna.conf	Thu Nov 28 11:27:01 1996
-+++ Canna35b2/Canna.conf	Sat Mar  9 19:13:20 2002
-@@ -128,27 +128,27 @@
-  * $Id$
-  */
+--- Canna37p3/Canna.conf~	2006-04-13 14:18:56.625048078 +0300
++++ Canna37p3/Canna.conf	2006-04-13 14:25:47.404240386 +0300
+@@ -109,12 +109,12 @@
+ # define DefErrDir $(cannaPrefix)/log
+ # define DefLibCannaDir $(cannaExecPrefix)/lib
+ #else 
+-# define DefCannaPrefix /usr/local/canna
++# define DefCannaPrefix /usr
+ # ifdef ObsoleteInstallDir
+ #  define DefErrDir /usr/spool/canna
+ #  define DefLibCannaDir /usr/lib
+ # else
+-#  define DefErrDir /var/log
++#  define DefErrDir /var/log/canna
+ #  define DefLibCannaDir $(cannaExecPrefix)/lib
+ # endif
+ #endif
+@@ -169,13 +169,13 @@
+ #define ModernElfLink NO /* experimental */
  
--cannaBinDir = /usr/local/canna/bin
--cannaSrvDir = /usr/local/canna/bin
--cannaLibDir = /usr/local/canna/lib
--cannaManDir = /usr/local/canna/man
--cannaIncDir = /usr/local/canna/include/canna
-+cannaBinDir = /usr/bin
-+cannaSrvDir = /usr/sbin
-+cannaLibDir = /var/lib/canna
-+cannaManDir = /usr/share/man/ja
-+cannaIncDir = /usr/include/canna
- libCannaDir = /usr/lib
- 
--ErrDir  = /usr/spool/canna
-+ErrDir  = /var/log/canna
- 
- wcharDefinition = -DCANNA_WCHAR
- Wlib =
--JapaneseLocale = japanese
-+JapaneseLocale = ja_JP.eucJP
  
 -cannaOwner = bin
 -cannaGroup = bin
 +cannaOwner = canna
 +cannaGroup = canna
  
- cannaOwnerGroup = -o $(cannaOwner) -g $(cannaGroup)
+ #ifdef InstallAsUser
+ cannaOwnerGroup =
+ #else
+-cannaOwnerGroup = -o $(cannaOwner) -g $(cannaGroup)
++cannaOwnerGroup =
+ #endif
  
- pointerIntegerDef =
+ cannaDsoRev = 1.2
+@@ -199,9 +199,9 @@
+ CHGRP = :
+ CHMOD = :
+ #else
+-CHOWN = chown
+-CHGRP = chgrp
+-CHMOD = chmod
++CHOWN = :
++CHGRP = :
++CHMOD = :
+ #endif
  
--cannaDsoRev = 1
-+cannaDsoRev = 1.0.0
-     /* SunOS 4.x をお使いの方で shared object を利用する場合には
-             cannaDsoRev = 1.1
-     と指定してください。また、FreeBSD を利用する場合は、
-@@ -170,7 +170,7 @@
- #define JAPANESEMAN
- 
- /* locale ディレクトリを持っている場合は以下を記述する */
--/* #define LOCALE_DIR /usr/lib/locale */
-+#define LOCALE_DIR /usr/share/locale
- 
- /* エンジンスイッチ機能を使うのであればコメントをはずす */
- /* ※注 Canna version 3.5 ではコメントをはずさないでください */
+ /* 日本語マニュアルを使わないのであればコメントアウト */
+--- Canna37p3/server/Imakefile~	2006-04-13 14:33:32.394645446 +0300
++++ Canna37p3/server/Imakefile	2006-04-13 14:34:10.555499249 +0300
+@@ -6,7 +6,7 @@
+ #ifdef __EMX__
+          INSTFLAGS = $(INSTUGIDFLAGS)
+ #else
+-         INSTFLAGS = -s $(INSTUGIDFLAGS)
++         INSTFLAGS = $(INSTUGIDFLAGS)
+ #endif
+            DEFINES = $(CANNASERVER_DEFINES) $(SIGNAL_DEFINES) ConnectionFlags
+           INCLUDES = -I$(CANNAROOT)/include
