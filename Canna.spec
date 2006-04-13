@@ -14,7 +14,7 @@ Source0:	http://downloads.sourceforge.jp/canna/9565/%{name}%{_ver}%{_rc}.tar.bz2
 Source1:	%{name}.init
 Source2:	%{name}-dot-canna
 Patch0:		%{name}-conf.patch
-Patch1:		%{name}-DESTDIR.patch
+#Patch1:		%{name}-DESTDIR.patch # outdated by -conf.patch
 #Patch2:		%{name}-glibc.patch # looks outdated
 #Patch3:		%{name}-stdin.patch # looks outdated
 #Patch4:		%{name}-bcopy.patch # looks outdated
