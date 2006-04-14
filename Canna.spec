@@ -15,16 +15,6 @@ Source1:	%{name}.init
 Source2:	%{name}-dot-canna
 Patch0:		%{name}-conf.patch
 Patch1:		%{name}-lib64.patch
-#Patch2:		%{name}-wconv.patch # probably outdated sec fix
-#Patch1:		%{name}-DESTDIR.patch # outdated by -conf.patch
-#Patch2:		%{name}-glibc.patch # looks outdated
-#Patch3:		%{name}-stdin.patch # looks outdated
-#Patch4:		%{name}-bcopy.patch # looks outdated
-#Patch5:		%{name}-security.patch # looks outdated
-#Patch6:		%{name}-hosts.canna-fix.patch # looks outdated
-#Patch7:		%{name}-nonstrip.patch # merged into Canna-conf.patch
-#Patch9:		%{name}-multivul.patch # apparently outdated
-#Patch10:	%{name}-fixes.patch # outdated apparently
 URL:		http://canna.sourceforge.jp/
 BuildRequires:	cpp
 BuildRequires:	imake
@@ -118,7 +108,6 @@ Ten pakiet zawiera statyczne biblioteki Canna.
 %if "%{_lib}" == "lib64"
 %patch1 -p1
 %endif
-#%patch2 -p1
 
 %build
 xmkmf -a
