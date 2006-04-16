@@ -26,7 +26,7 @@ Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires:	%{name}-libs = %{version}
+Requires:	%{name}-libs = %{version}-%{release}
 Requires:	rc-scripts
 Provides:	group(canna)
 Provides:	user(canna)
@@ -76,7 +76,7 @@ u¿ywaj±cych Canna.
 Summary:	Header files for Canna
 Summary(pl):	Pliki nag³ówkowe Canna
 Group:		Development/Libraries
-Requires:	%{name}-libs = %{version}
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description devel
 This package contains the header files for building programs which use
@@ -94,7 +94,7 @@ Canna.
 Summary:	Canna static libraries
 Summary(pl):	Biblioteki statyczne Canna
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 This package contains Canna static libraries.
@@ -147,7 +147,6 @@ localhost
 EOF
 
 rm -rf $RPM_BUILD_ROOT%{_prefix}/man
-
 
 %clean
 rm -fr $RPM_BUILD_ROOT
