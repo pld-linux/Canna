@@ -17,8 +17,10 @@ Patch0:		%{name}-conf.patch
 Patch1:		%{name}-lib64.patch
 URL:		http://canna.sourceforge.jp/
 BuildRequires:	cpp
-BuildRequires:	imake
 BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	xorg-cf-files
+BuildRequires:	xorg-util-gccmakedep
+BuildRequires:	xorg-util-imake
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
