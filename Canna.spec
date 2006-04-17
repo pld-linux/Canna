@@ -1,6 +1,6 @@
 %define	_ver	%(echo %{version} | tr -d .)
 %define	_rc		p3
-%define	_rel	1
+%define	_rel	2
 Summary:	Japanese input system
 Summary(ja):	ÆüËÜ¸ìÆşÎÏ¥·¥¹¥Æ¥à
 Summary(pl):	System wprowadzania znaków japoñskich
