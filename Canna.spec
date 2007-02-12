@@ -2,8 +2,8 @@
 %define	_rc		p3
 %define	_rel	1
 Summary:	Japanese input system
-Summary(ja.UTF-8):   日本語入力システム
-Summary(pl.UTF-8):   System wprowadzania znaków japońskich
+Summary(ja.UTF-8):	日本語入力システム
+Summary(pl.UTF-8):	System wprowadzania znaków japońskich
 Name:		Canna
 Version:	3.7
 Release:	%{_rc}.%{_rel}
@@ -63,7 +63,7 @@ obsługuje też automatyczną konwersję kana do kanji.
 
 %package libs
 Summary:	Runtime library for Canna
-Summary(pl.UTF-8):   Biblioteki Canna
+Summary(pl.UTF-8):	Biblioteki Canna
 Group:		Libraries
 
 %description libs
@@ -76,7 +76,7 @@ używających Canna.
 
 %package devel
 Summary:	Header files for Canna
-Summary(pl.UTF-8):   Pliki nagłówkowe Canna
+Summary(pl.UTF-8):	Pliki nagłówkowe Canna
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 
@@ -94,7 +94,7 @@ Canna.
 
 %package static
 Summary:	Canna static libraries
-Summary(pl.UTF-8):   Biblioteki statyczne Canna
+Summary(pl.UTF-8):	Biblioteki statyczne Canna
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
