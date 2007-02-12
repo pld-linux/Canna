@@ -2,8 +2,8 @@
 %define	_rc		p3
 %define	_rel	1
 Summary:	Japanese input system
-Summary(ja):	ÆüËÜ¸ìÆşÎÏ¥·¥¹¥Æ¥à
-Summary(pl):	System wprowadzania znaków japoñskich
+Summary(ja.UTF-8):   æ—¥æœ¬èªå…¥åŠ›ã‚·ã‚¹ãƒ†ãƒ 
+Summary(pl.UTF-8):   System wprowadzania znakÃ³w japoÅ„skich
 Name:		Canna
 Version:	3.7
 Release:	%{_rc}.%{_rel}
@@ -44,39 +44,39 @@ Japanese in the same way. It converts kana to kanji based on a
 client-server model and supports automatically kana-to-kanji
 conversion.
 
-%description -l ja
-Canna ¤ÏÆüËÜ¸ì¤òÆşÎÏ¤¹¤ëºİ¤Ë¡¢Åı°ì¤µ¤ì¤¿¥æ¡¼¥¶¥¤¥ó¥¿¡¼¥Õ¥§¡¼¥¹¤òÄó¶¡¤¹
-¤ëÆüËÜ¸ìÆşÎÏ¥·¥¹¥Æ¥à¤Ç¤¹¡£Nemacs(Mule)¡¢kinput2¡¢canuum ¤ò¥µ¥İ¡¼¥È¤·¤Æ
-¤¤¤Ş¤¹¡£¤³¤ì¤é¤Î¥Ä¡¼¥ë¤¹¤Ù¤Æ¤Ï¡¢Ã±°ì¤Î¥«¥¹¥¿¥Ş¥¤¥º¥Õ¥¡¥¤¥ë¡¢¥í¡¼¥Ş»ú¤«
-¤ÊÊÑ´¹µ¬Â§¡¢ÊÑ´¹¼­½ñ¤òÍÑ¤¤¤Æ¡¢Æ±ÍÍ¤ËÆüËÜ¸ìÆşÎÏ¤Ç¤­¤Ş¤¹¡£¥¯¥é¥¤¥¢¥ó¥È-
-¥µ¡¼¥Ğ¥â¥Ç¥ë¤Ë¤â¤È¤Å¤¤¤Æ¤«¤Ê¤ò´Á»ú¤ËÊÑ´¹¤·¡¢Ãà¼¡Åª¤Ê¤«¤Ê´Á»úÊÑ´¹¤ò¥µ¥İ¡¼
-¥È¤·¤Æ¤¤¤Ş¤¹¡£
+%description -l ja.UTF-8
+Canna ã¯æ—¥æœ¬èªã‚’å…¥åŠ›ã™ã‚‹éš›ã«ã€çµ±ä¸€ã•ã‚ŒãŸãƒ¦ãƒ¼ã‚¶ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã‚’æä¾›ã™
+ã‚‹æ—¥æœ¬èªå…¥åŠ›ã‚·ã‚¹ãƒ†ãƒ ã§ã™ã€‚Nemacs(Mule)ã€kinput2ã€canuum ã‚’ã‚µãƒãƒ¼ãƒˆã—ã¦
+ã„ã¾ã™ã€‚ã“ã‚Œã‚‰ã®ãƒ„ãƒ¼ãƒ«ã™ã¹ã¦ã¯ã€å˜ä¸€ã®ã‚«ã‚¹ã‚¿ãƒã‚¤ã‚ºãƒ•ã‚¡ã‚¤ãƒ«ã€ãƒ­ãƒ¼ãƒå­—ã‹
+ãªå¤‰æ›è¦å‰‡ã€å¤‰æ›è¾æ›¸ã‚’ç”¨ã„ã¦ã€åŒæ§˜ã«æ—¥æœ¬èªå…¥åŠ›ã§ãã¾ã™ã€‚ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆ-
+ã‚µãƒ¼ãƒãƒ¢ãƒ‡ãƒ«ã«ã‚‚ã¨ã¥ã„ã¦ã‹ãªã‚’æ¼¢å­—ã«å¤‰æ›ã—ã€é€æ¬¡çš„ãªã‹ãªæ¼¢å­—å¤‰æ›ã‚’ã‚µãƒãƒ¼
+ãƒˆã—ã¦ã„ã¾ã™ã€‚
 
-%description -l pl
-Canna to system wprowadzania znaków japoñskich, dostarczaj±cy
-jednolity interfejs u¿ytkownika do tego celu. Obs³uguje Cemacsa
-(Mule), kinput2 i canuum. Wszystkie te narzêdzia mog± byæ u¿ywane
-poprzez pojedynczy plik konfiguracyjny, w ten sam sposób dla zasad
-konwersji romaji do kana, s³owników konwersji i wprowadzania znaków.
-Canna konwertuje kana do kanji bazuj±c na modelu klient-serwer,
-obs³uguje te¿ automatyczn± konwersjê kana do kanji.
+%description -l pl.UTF-8
+Canna to system wprowadzania znakÃ³w japoÅ„skich, dostarczajÄ…cy
+jednolity interfejs uÅ¼ytkownika do tego celu. ObsÅ‚uguje Cemacsa
+(Mule), kinput2 i canuum. Wszystkie te narzÄ™dzia mogÄ… byÄ‡ uÅ¼ywane
+poprzez pojedynczy plik konfiguracyjny, w ten sam sposÃ³b dla zasad
+konwersji romaji do kana, sÅ‚ownikÃ³w konwersji i wprowadzania znakÃ³w.
+Canna konwertuje kana do kanji bazujÄ…c na modelu klient-serwer,
+obsÅ‚uguje teÅ¼ automatycznÄ… konwersjÄ™ kana do kanji.
 
 %package libs
 Summary:	Runtime library for Canna
-Summary(pl):	Biblioteki Canna
+Summary(pl.UTF-8):   Biblioteki Canna
 Group:		Libraries
 
 %description libs
 This package contains the runtime library for running programs with
 Canna.
 
-%description libs -l pl
-Ten pakiet zawiera biblioteki potrzebne do uruchamiania programów
-u¿ywaj±cych Canna.
+%description libs -l pl.UTF-8
+Ten pakiet zawiera biblioteki potrzebne do uruchamiania programÃ³w
+uÅ¼ywajÄ…cych Canna.
 
 %package devel
 Summary:	Header files for Canna
-Summary(pl):	Pliki nag³ówkowe Canna
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe Canna
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 
@@ -84,24 +84,24 @@ Requires:	%{name}-libs = %{version}-%{release}
 This package contains the header files for building programs which use
 Canna.
 
-%description devel -l ja
-¤³¤Î¥Ñ¥Ã¥±¡¼¥¸¤Ë¤Ï Canna ¤òÍøÍÑ¤·¤¿¥×¥í¥°¥é¥à¤ò¥³¥ó¥Ñ¥¤¥ë¤¹¤ë¤¿¤á¤ËÉ¬
-Í×¤Ê¥Ø¥Ã¥À¥Õ¥¡¥¤¥ë¤È¥é¥¤¥Ö¥é¥ê¤ò´Ş¤ó¤Ç¤¤¤Ş¤¹¡£
+%description devel -l ja.UTF-8
+ã“ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã«ã¯ Canna ã‚’åˆ©ç”¨ã—ãŸãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã™ã‚‹ãŸã‚ã«å¿…
+è¦ãªãƒ˜ãƒƒãƒ€ãƒ•ã‚¡ã‚¤ãƒ«ã¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’å«ã‚“ã§ã„ã¾ã™ã€‚
 
-%description devel -l pl
-Ten pakiet zawiera pliki nag³ówkowe do budowania programów u¿ywaj±cych
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagÅ‚Ã³wkowe do budowania programÃ³w uÅ¼ywajÄ…cych
 Canna.
 
 %package static
 Summary:	Canna static libraries
-Summary(pl):	Biblioteki statyczne Canna
+Summary(pl.UTF-8):   Biblioteki statyczne Canna
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 This package contains Canna static libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Ten pakiet zawiera statyczne biblioteki Canna.
 
 %prep
