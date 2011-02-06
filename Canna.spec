@@ -151,7 +151,7 @@ EOF
 rm -rf $RPM_BUILD_ROOT%{_prefix}/man
 
 %clean
-rm -fr $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 %pre
 %groupadd -g 41 canna
