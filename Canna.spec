@@ -1,6 +1,6 @@
 %define	_ver	%(echo %{version} | tr -d .)
 %define	_rc		p3
-%define	_rel	1
+%define	_rel	2
 Summary:	Japanese input system
 Summary(ja.UTF-8):	日本語入力システム
 Summary(pl.UTF-8):	System wprowadzania znaków japońskich
@@ -113,7 +113,7 @@ Ten pakiet zawiera statyczne biblioteki Canna.
 
 %build
 xmkmf -a
-%{__make} canna \
+%{__make} -j1 canna \
 	CDEBUGFLAGS="%{rpmcflags}" \
 	CXXDEBUGFLAGS="%{rpmcflags}"
 
@@ -121,13 +121,13 @@ xmkmf -a
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/rc.d/init.d,/etc/skel}
 
-%{__make} install install.man \
+%{__make} -j1 install install.man \
 	DESTDIR=$RPM_BUILD_ROOT \
 	MANSUFFIX=1 \
 	LIBMANSUFFIX=3
 
 xmkmf -a
-%{__make} install.man \
+%{__make} -j1 install.man \
 	DESTDIR=$RPM_BUILD_ROOT \
 	cannaManDir=%{_mandir} \
 	MANSUFFIX=1 \
