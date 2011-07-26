@@ -1,6 +1,6 @@
 %define	_ver	%(echo %{version} | tr -d .)
 %define	_rc		p3
-%define	_rel	2
+%define	_rel	3
 Summary:	Japanese input system
 Summary(ja.UTF-8):	日本語入力システム
 Summary(pl.UTF-8):	System wprowadzania znaków japońskich
@@ -153,9 +153,12 @@ rm -rf $RPM_BUILD_ROOT%{_prefix}/man
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%triggerpostun -- canna < 3.7-p3.3
+usermod -d %{_datadir}/canna canna
+
 %pre
 %groupadd -g 41 canna
-%useradd -u 41 -d /var/lib/canna -s /bin/false -c "Canna Service User" -g canna canna
+%useradd -u 41 -d %{_datadir}/canna -s /bin/false -c "Canna Service User" -g canna canna
 
 %post
 /sbin/chkconfig --add canna

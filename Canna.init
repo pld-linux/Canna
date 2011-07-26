@@ -17,7 +17,7 @@ case "$1" in
 	if [ ! -f /var/lock/subsys/canna ]; then
 		msg_starting Canna
 		rm -f /tmp/.iroha_unix/IROHA
-		daemon "su - canna -s /bin/sh -c '/usr/sbin/cannaserver -syslog'"
+		daemon --user canna /usr/sbin/cannaserver -syslog
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/canna
 	else
