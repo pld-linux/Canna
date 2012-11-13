@@ -1,0 +1,34 @@
+--- Canna37p3/cmd/catdic/can.c.orig	2003-02-01 20:34:20.000000000 +0100
++++ Canna37p3/cmd/catdic/can.c	2012-11-13 19:44:35.098812750 +0100
+@@ -1236,7 +1236,7 @@
+ 	break;
+       default:
+ 	if (init[0] == '/') {
+-	    (void)fprintf(stderr,msg_abnl);
++	    (void)fputs(msg_abnl,stderr);
+ 	} else {
+ 	    (void)fprintf(stderr,msg_abnls,init);
+ 	}
+@@ -1297,11 +1297,11 @@
+ 
+     if ( opt_fq ) {
+       if ( opt_s ) {
+-        (void) fprintf(stderr,msg_sfq);
++        (void) fputs(msg_sfq,stderr);
+         exit(ERR_VALUE) ;
+       }  
+       if ( opt_l || opt_std ) {
+-        (void) fprintf(stderr,msg_l);
++        (void) fputs(msg_l,stderr);
+         exit(ERR_VALUE) ;
+       }
+       mode = mode | PL_DIC ;
+@@ -1491,7 +1491,7 @@
+     break;
+   default:
+     if(init[0] == '/') {
+-      fprintf(stderr,msg_abnl );
++      fputs(msg_abnl,stderr);
+     }
+     else {
+       fprintf(stderr,msg_abnls,init);

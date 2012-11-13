@@ -13,7 +13,8 @@ Source0:	http://downloads.sourceforge.jp/canna/9565/%{name}%{dver}.tar.bz2
 Source1:	%{name}.init
 Source2:	%{name}-dot-canna
 Patch0:		%{name}-conf.patch
-Patch1:		%{name}-lib64.patch
+Patch1:		%{name}-format.patch
+Patch2:		%{name}-lib64.patch
 URL:		http://canna.sourceforge.jp/
 BuildRequires:	cpp
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -106,8 +107,9 @@ Ten pakiet zawiera statyczne biblioteki Canna.
 %prep
 %setup -q -n %{name}%{dver}
 %patch0 -p1
-%if "%{_lib}" == "lib64"
 %patch1 -p1
+%if "%{_lib}" == "lib64"
+%patch2 -p1
 %endif
 
 %build
