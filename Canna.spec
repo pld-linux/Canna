@@ -1,15 +1,13 @@
-%define	_ver	%(echo %{version} | tr -d .)
-%define	_rc		p3
-%define	_rel	3
+%define	dver	%(echo %{version} | tr -d .)
 Summary:	Japanese input system
 Summary(ja.UTF-8):	日本語入力システム
 Summary(pl.UTF-8):	System wprowadzania znaków japońskich
 Name:		Canna
-Version:	3.7
-Release:	%{_rc}.%{_rel}
+Version:	3.7p3
+Release:	4
 License:	BSD-like
 Group:		Libraries
-Source0:	http://downloads.sourceforge.jp/canna/9565/%{name}%{_ver}%{_rc}.tar.bz2
+Source0:	http://downloads.sourceforge.jp/canna/9565/%{name}%{dver}.tar.bz2
 # Source0-md5:	0b8c241f63ab4cd3c0b9be569456dc33
 Source1:	%{name}.init
 Source2:	%{name}-dot-canna
@@ -105,7 +103,7 @@ This package contains Canna static libraries.
 Ten pakiet zawiera statyczne biblioteki Canna.
 
 %prep
-%setup -q -n %{name}%{_ver}%{_rc}
+%setup -q -n %{name}%{dver}
 %patch0 -p1
 %if "%{_lib}" == "lib64"
 %patch1 -p1
@@ -114,6 +112,7 @@ Ten pakiet zawiera statyczne biblioteki Canna.
 %build
 xmkmf -a
 %{__make} -j1 canna \
+	CC="%{__cc}" \
 	CDEBUGFLAGS="%{rpmcflags}" \
 	CXXDEBUGFLAGS="%{rpmcflags}"
 
@@ -183,13 +182,64 @@ fi
 %defattr(644,root,root,755)
 %doc README WHATIS
 %lang(ja) %doc CHANGES.jp README.jp WHATIS.jp
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/addwords
+%attr(755,root,root) %{_bindir}/canlisp
+%attr(755,root,root) %{_bindir}/cannacheck
+%attr(755,root,root) %{_bindir}/cannastat
+%attr(755,root,root) %{_bindir}/catdic
+%attr(755,root,root) %{_bindir}/chkconc
+%attr(755,root,root) %{_bindir}/chmoddic
+%attr(755,root,root) %{_bindir}/cpdic
+%attr(755,root,root) %{_bindir}/crfreq
+%attr(755,root,root) %{_bindir}/crxdic
+%attr(755,root,root) %{_bindir}/crxgram
+%attr(755,root,root) %{_bindir}/cshost
+%attr(755,root,root) %{_bindir}/ctow
+%attr(755,root,root) %{_bindir}/delwords
+%attr(755,root,root) %{_bindir}/dicar
+%attr(755,root,root) %{_bindir}/dpbindic
+%attr(755,root,root) %{_bindir}/dpromdic
+%attr(755,root,root) %{_bindir}/dpxdic
+%attr(755,root,root) %{_bindir}/forcpp
+%attr(755,root,root) %{_bindir}/forsort
+%attr(755,root,root) %{_bindir}/kpdic
+%attr(755,root,root) %{_bindir}/lsdic
+%attr(755,root,root) %{_bindir}/mergeword
+%attr(755,root,root) %{_bindir}/mkbindic
+%attr(755,root,root) %{_bindir}/mkdic
+%attr(755,root,root) %{_bindir}/mkromdic
+%attr(755,root,root) %{_bindir}/mvdic
+%attr(755,root,root) %{_bindir}/rmdic
+%attr(755,root,root) %{_bindir}/splitword
+%attr(755,root,root) %{_bindir}/syncdic
+%attr(755,root,root) %{_bindir}/wtoc
 %attr(755,root,root) %{_sbindir}/cannaserver
 %attr(755,root,root) %{_sbindir}/cannakill
 %attr(754,root,root) /etc/rc.d/init.d/canna
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/hosts.canna
 %config(noreplace) %verify(not md5 mtime size) /etc/skel/.canna
-%{_mandir}/man1/*
+%{_mandir}/man1/addwords.1*
+%{_mandir}/man1/cannacheck.1*
+%{_mandir}/man1/cannakill.1*
+%{_mandir}/man1/cannaserver.1*
+%{_mandir}/man1/cannastat.1*
+%{_mandir}/man1/catdic.1*
+%{_mandir}/man1/chmoddic.1*
+%{_mandir}/man1/cpdic.1*
+%{_mandir}/man1/cshost.1*
+%{_mandir}/man1/ctow.1*
+%{_mandir}/man1/delwords.1*
+%{_mandir}/man1/dicar.1*
+%{_mandir}/man1/dpbindic.1*
+%{_mandir}/man1/dpromdic.1*
+%{_mandir}/man1/lsdic.1*
+%{_mandir}/man1/mkbindic.1*
+%{_mandir}/man1/mkdic.1*
+%{_mandir}/man1/mkromdic.1*
+%{_mandir}/man1/mvdic.1*
+%{_mandir}/man1/rmdic.1*
+%{_mandir}/man1/splitword.1*
+%{_mandir}/man1/wtoc.1*
 %lang(ja) %{_mandir}/ja/man1/*
 %attr(770,root,canna) /var/log/canna
 
@@ -220,7 +270,12 @@ fi
 %attr(755,root,root) %{_libdir}/libcanna.so
 %attr(755,root,root) %{_libdir}/libcanna16.so
 %{_includedir}/canna
-%{_mandir}/man3/*
+%{_mandir}/man3/Rk*.3*
+%{_mandir}/man3/XKanjiControl.3*
+%{_mandir}/man3/XLookupKanjiString.3*
+%{_mandir}/man3/cannalib.3*
+%{_mandir}/man3/jrKanji*.3*
+%{_mandir}/man3/uilib.3*
 %lang(ja) %{_mandir}/ja/man3/*
 
 %files static
