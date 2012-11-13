@@ -32,3 +32,168 @@
      }
      else {
        fprintf(stderr,msg_abnls,init);
+--- Canna37p3/cmd/catdic/rutil.c.orig	2003-12-27 18:15:21.000000000 +0100
++++ Canna37p3/cmd/catdic/rutil.c	2012-11-13 19:53:32.535456863 +0100
+@@ -271,7 +271,7 @@
+ 	 "Dictionary \"%s\" does not exist.\n"), dicname);
+     break;
+   case NOTALC :
+-    (void)fprintf(stderr, msg_mem);
++    (void)fputs(msg_mem, stderr);
+     break;
+   case BADF :
+     (void)fprintf(stderr, gettxt("cannacmd:196",
+@@ -297,7 +297,7 @@
+ 	(void)fprintf(stderr,msg_abnls,init);
+     }
+     else {
+-	(void)fprintf(stderr,msg_abnl);
++	(void)fputs(msg_abnl, stderr);
+     }
+     break;
+   }
+@@ -321,7 +321,7 @@
+ 	(void)fprintf(stderr, msg_abnls, init);
+     }
+     else {
+-	(void)fprintf(stderr, msg_abnl);
++	(void)fputs(msg_abnl, stderr);
+     }
+     ret = -1;
+     return ret;
+@@ -332,13 +332,13 @@
+ 	  (void)fprintf(stderr, msg_mnts, init);
+       }
+       else {
+-	  (void)fprintf(stderr, msg_mnt);
++	  (void)fputs(msg_mnt, stderr);
+       }
+       ret = -1;
+       return ret;
+     }
+     if ((mode & PL_DIC) == PL_DIC ) {
+-      (void)fprintf(stderr,msg_fq);
++      (void)fputs(msg_fq,stderr);
+       ret = -1 ;
+       return ret ;
+     }
+@@ -359,7 +359,7 @@
+     ret = 0;
+     break;
+   case NOTALC :
+-    (void)fprintf(stderr, msg_mem);
++    (void)fputs(msg_mem,stderr);
+     ret = -1;
+     break;
+   case BADF :
+@@ -421,7 +421,7 @@
+     ret = -1;
+     break;
+   case BADCONT :
+-    (void)fprintf(stderr,msg_cnt);
++    (void)fputs(msg_cnt,stderr);
+     ret = -1;
+     break;
+   default:
+@@ -429,7 +429,7 @@
+       (void)fprintf(stderr, msg_abnls, init);
+     }
+     else {
+-	(void)fprintf(stderr, msg_abnl);
++	(void)fputs(msg_abnl,stderr);
+     }
+     exit(ERR_VALUE);
+     break;
+@@ -448,7 +448,7 @@
+     ret = 0;
+     break;
+   case NOTALC :
+-    (void)fprintf(stderr, msg_mem);
++    (void)fputs(msg_mem, stderr);
+     ret = -1;
+     break;
+   case BADF :
+@@ -509,11 +509,11 @@
+     ret = -1;
+     break;
+   case BADARG :
+-    (void)fprintf(stderr,msg_fq);
++    (void)fputs(msg_fq,stderr);
+     ret = -1;
+     break;
+   case BADCONT :
+-    (void)fprintf(stderr,msg_cnt);
++    (void)fputs(msg_cnt,stderr);
+     ret = -1;
+     break;
+   case NOENT  :   /* 91.12.03 */
+@@ -526,7 +526,7 @@
+       (void)fprintf(stderr, msg_abnls, init);
+     }
+     else {
+-	(void)fprintf(stderr, msg_abnl);
++	(void)fputs(msg_abnl,stderr);
+     }
+     exit(ERR_VALUE);
+     break;
+@@ -556,7 +556,7 @@
+       (void)fprintf(stderr, msg_abnls,init);
+     }
+     else {
+-	(void)fprintf(stderr, msg_abnl);
++	(void)fputs(msg_abnl,stderr);
+     }
+     ret = -1;
+     return ret;
+@@ -567,13 +567,13 @@
+ 	(void)fprintf(stderr, msg_mnts, init);
+       }
+       else {
+-	  (void)fprintf(stderr, msg_mnt);
++	  (void)fputs(msg_mnt, stderr);
+       }
+       ret = -1;
+       return ret;
+     }
+     if ((mode & PL_DIC) == PL_DIC ) {
+-      (void)fprintf(stderr, msg_fq);
++      (void)fputs(msg_fq, stderr);
+       ret = -1 ;
+       return ret ;
+     }
+@@ -608,7 +608,7 @@
+     ret = -2;   /* 93.03.03 */
+     break;
+   case BADCONT :
+-    (void)fprintf(stderr, msg_cnt);
++    (void)fputs(msg_cnt, stderr);
+     ret = -1;
+     break;
+   default:
+@@ -616,7 +616,7 @@
+ 	(void)fprintf(stderr, msg_abnls, init);
+     }
+     else {
+-	(void)fprintf(stderr, msg_abnl);
++	(void)fputs(msg_abnl, stderr);
+     }
+     ret = -1;
+     break;
+@@ -651,7 +651,7 @@
+     ret = -2;   /* 93.03.03 */
+     break;
+   case BADCONT :
+-    (void)fprintf(stderr, msg_cnt);
++    (void)fputs(msg_cnt, stderr);
+     ret = -1;
+     break;
+   default:
+@@ -659,7 +659,7 @@
+ 	(void)fprintf(stderr, msg_abnls, init);
+     }
+     else {
+-	(void)fprintf(stderr, msg_abnl);
++	(void)fputs(msg_abnl, stderr);
+     }
+     ret = -1;
+     break;
