@@ -7,6 +7,7 @@ Version:	3.7p3
 Release:	4
 License:	BSD-like
 Group:		Libraries
+#Source0Download: http://canna.sourceforge.jp/
 Source0:	http://downloads.sourceforge.jp/canna/9565/%{name}%{dver}.tar.bz2
 # Source0-md5:	0b8c241f63ab4cd3c0b9be569456dc33
 Source1:	%{name}.init
