@@ -4,7 +4,7 @@ Summary(ja.UTF-8):	日本語入力システム
 Summary(pl.UTF-8):	System wprowadzania znaków japońskich
 Name:		Canna
 Version:	3.7p3
-Release:	4
+Release:	5
 License:	BSD-like
 Group:		Libraries
 #Source0Download: http://canna.sourceforge.jp/
@@ -15,6 +15,7 @@ Source2:	%{name}-dot-canna
 Patch0:		%{name}-conf.patch
 Patch1:		%{name}-format.patch
 Patch2:		%{name}-lib64.patch
+Patch3:		%{name}-libx32.patch
 URL:		http://canna.sourceforge.jp/
 BuildRequires:	cpp
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -110,6 +111,9 @@ Ten pakiet zawiera statyczne biblioteki Canna.
 %patch1 -p1
 %if "%{_lib}" == "lib64"
 %patch2 -p1
+%endif
+%if "%{_lib}" == "libx32"
+%patch3 -p1
 %endif
 
 %build

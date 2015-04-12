@@ -1,0 +1,21 @@
+--- Canna37p3/Canna.conf~	2006-04-13 18:46:53.000000000 +0300
++++ Canna37p3/Canna.conf	2006-04-14 14:00:58.000000000 +0300
+@@ -107,15 +107,15 @@
+ #ifdef InstallAsUser
+ # define DefCannaPrefix $(HOME)/canna
+ # define DefErrDir $(cannaPrefix)/log
+-# define DefLibCannaDir $(cannaExecPrefix)/lib
++# define DefLibCannaDir $(cannaExecPrefix)/libx32
+ #else 
+ # define DefCannaPrefix /usr
+ # ifdef ObsoleteInstallDir
+ #  define DefErrDir /usr/spool/canna
+-#  define DefLibCannaDir /usr/lib
++#  define DefLibCannaDir /usr/libx32
+ # else
+ #  define DefErrDir /var/log/canna
+-#  define DefLibCannaDir $(cannaExecPrefix)/lib
++#  define DefLibCannaDir $(cannaExecPrefix)/libx32
+ # endif
+ #endif
+ #ifdef ObsoleteInstallDir
