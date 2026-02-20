@@ -4,7 +4,7 @@ Summary(ja.UTF-8):	日本語入力システム
 Summary(pl.UTF-8):	System wprowadzania znaków japońskich
 Name:		Canna
 Version:	3.7p3
-Release:	5
+Release:	6
 License:	BSD-like
 Group:		Libraries
 #Source0Download: http://canna.sourceforge.jp/
